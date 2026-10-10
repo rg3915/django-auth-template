@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <article>
+    <h2>Meu perfil</h2>
+    <p>{{ user.email }}</p>
+    {% include 'registration/_form.html' with button='Salvar' %}
+    <a href="{% url 'password_change' %}">Trocar a senha</a>
+  </article>
+{% endblock %}

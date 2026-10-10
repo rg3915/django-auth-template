@@ -1,0 +1,26 @@
+# chaves com _ configuram o Copier
+_subdirectory: template
+_min_copier_version: "9.2.0"
+_tasks:
+  - "git init"
+  - "uv sync"
+  - "uv run python contrib/env_gen.py"
+  - command: "uv run python manage.py migrate"
+    when: "{{ database == 'sqlite' }}"
+
+project_name:
+  type: str
+  help: Nome do projeto
+  default: Meu Projeto
+
+project_slug:
+  type: str
+  help: Nome do pacote Python
+  default: "{{ project_name | lower | replace(' ', '_') }}"
+  validator: "{% if not project_slug.isidentifier() %}Use letras, números e _{% endif %}"
+
+database:
+  type: str
+  help: Banco de dados
+  choices: [sqlite, postgres]
+  default: sqlite

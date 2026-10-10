@@ -1,0 +1,23 @@
+"""Gera o arquivo .env com uma SECRET_KEY nova."""
+from pathlib import Path
+
+from django.core.management.utils import get_random_secret_key
+
+env = Path(__file__).resolve().parent.parent / '.env'
+
+if env.exists():
+    print('.env já existe, nada foi alterado.')
+else:
+    env.write_text(
+        f'SECRET_KEY={get_random_secret_key()}\n'
+        'DEBUG=True\n'
+        'ALLOWED_HOSTS=127.0.0.1,localhost\n'
+{%- if database == 'postgres' %}
+        'DATABASE_URL=postgres://postgres:postgres@localhost:5432/{{ project_slug }}\n'
+{%- else %}
+        '# sem DATABASE_URL: usa o db.sqlite3 na raiz do projeto\n'
+{%- endif %}
+        '# em produção:\n'
+        '# EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend\n'
+    )
+    print('.env criado.')

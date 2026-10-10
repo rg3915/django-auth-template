@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <article>
+    <h2>Criar conta</h2>
+    {% include 'registration/_form.html' with button='Criar conta' %}
+    <small>Já tem conta? <a href="{% url 'login' %}">Entrar</a></small>
+  </article>
+{% endblock %}

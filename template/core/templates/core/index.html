@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ project_name }}</h1>
+  {% if user.is_authenticated %}
+    <p>Você entrou como <strong>{{ user.email }}</strong>.</p>
+  {% else %}
+    <p><a href="{% url 'login' %}">Entre</a> ou <a href="{% url 'signup' %}">crie uma conta</a>.</p>
+  {% endif %}
+{% endblock %}

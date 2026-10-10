@@ -1,0 +1,21 @@
+<header class="container">
+  <nav>
+    <ul>
+      <li><a href="{% url 'core:index' %}"><strong>{{ project_name }}</strong></a></li>
+    </ul>
+    <ul>
+      {% if user.is_authenticated %}
+        <li><a href="{% url 'profile' %}">{{ user.email }}</a></li>
+        <li>
+          <form method="post" action="{% url 'logout' %}" style="margin: 0">
+            {% csrf_token %}
+            <button type="submit" class="outline">Sair</button>
+          </form>
+        </li>
+      {% else %}
+        <li><a href="{% url 'login' %}">Entrar</a></li>
+        <li><a href="{% url 'signup' %}" role="button">Criar conta</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+</header>
